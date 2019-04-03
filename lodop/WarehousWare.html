@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<meta charset="UTF-8">
+
+<head>
+    <script src='./jquery-2.1.1.min.js'></script>
+
+    <script src='./LodopFuncs.js'></script>
+  
+    <script src='./DataOjbect.js'></script>
+    <script src='./GetPrintValues.js'></script>
+    <script src='./DoPrintModels.js'></script>
+
+</head>
+<style>
+</style>
+
+<body>
+    <button onclick="Ware()" style='width:110px;height:32px;background:#1890ff;color:white;border:none;border-radius:3px;line-height: 20px'>打印</button>
+
+</body>
+<script>
+
+    function Ware() {
+        var selectedRow = JSON.parse(sessionStorage.selectedRows)
+        var code = sessionStorage.warehouseCode
+        var warehouseType = sessionStorage.warehouseType
+        console.log(code, warehouseType)
+        console.log(sessionStorage.companyName)
+
+        console.log(code, sessionStorage.typeprint, sessionStorage.companyName)
+        if (sessionStorage.WriteOff == "true") {
+            if (selectedRow.length == 1) {
+                doMoveWarehouseReceiptPrint(0, code, sessionStorage.typeprint, sessionStorage.companyName + "(冲销)")
+            }
+            else {
+                for (var i = 0; i < selectedRow.length; i++) {
+                    for (var i = 0; i < selectedRow.length; i++) {
+                (function(){
+                    doMoveWarehouseReceiptPrint(1, selectedRow[i].moveCode, sessionStorage.typeprint, sessionStorage.companyName + "(冲销)")
+                    })(i)
+                
+            }
+                    
+                }
+            }
+
+        }
+        else {
+            if (selectedRow.length == 1) {
+                doMoveWarehouseReceiptPrint(0, code, sessionStorage.typeprint, sessionStorage.companyName)
+            }
+            else {
+                for (var i = 0; i < selectedRow.length; i++) {
+                    for (var i = 0; i < selectedRow.length; i++) {
+                (function(){
+                    doMoveWarehouseReceiptPrint(1, selectedRow[i].moveCode, sessionStorage.typeprint, sessionStorage.companyName)
+
+                    })(i)
+                
+            }
+                  
+                }
+            }
+        }
+    }
+
+
+</script>
+
+</html>

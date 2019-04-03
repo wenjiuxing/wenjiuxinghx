@@ -1,0 +1,91 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<meta charset="UTF-8">
+<head>
+   
+        <script src='./jquery-2.1.1.min.js'></script>
+ 
+    <script src='./LodopFuncs.js'></script>
+    <script src='./BulidModels.js'> </script>
+   
+   
+</head>
+    <style>
+
+</style>
+<body>
+    <button onclick="conso()" style='width:110px;height:32px;background:#1890ff;color:white;border:none;border-radius:3px;'>打印预览</button>
+    
+</body>
+<script>
+function conso(){
+    console.log(sessionStorage.listArrs)
+    var listArr=JSON.parse(sessionStorage.listArrs)
+    
+    console.log(listArr)
+    var type=sessionStorage.type
+    var width
+    var height
+if(type==0){
+    width=135
+    height=135
+}
+else{
+    width=100
+    height=100
+}
+
+var QRCodes =new Array();
+for(var i = 0;i<listArr.length;i++)
+{
+    console.log(listArr[i].materielCode);
+     
+     var QR =doPrint(listArr[i].inventoryId,width,height);
+     console.log(QR);
+     QRCodes.push(new QRCodeEntity("data:image/png;base64,"+QR,listArr[i].materielCode,listArr[i].materielDesc,listArr[i].materielBatchCode,listArr[i].supplierCode,listArr[i].storageLocation));
+  
+     console.log(QRCodes);
+}
+if(QRCodes.length>0)
+{
+
+   if(type==0)
+   {
+    BuildModelOne(QRCodes);
+   
+   }else{
+    BuildModelTow(QRCodes);
+   }
+    
+
+}else{
+    alert('没有取到数据')
+}
+
+}
+
+   
+
+function doPrint(inventoryId,width,height)
+{
+    var QRCode ="";
+     $.ajax({
+             type: "GET",
+             async:false,
+            //  url: "http://127.0.0.1:6005/Qrcode/getQrcode?content="+listArr.batchCode+'&width='+width+'&height='+height,
+             url: "http://api.wms.yncic.com/pmc/Qrcode/getQrcode?content="+inventoryId+'&width='+width+'&height='+height,
+             dataType: "json",
+             success: function(data){
+        
+                QRCode = data.data[0];
+               
+                      }
+         });
+
+  
+     return QRCode;
+}
+
+</script>
+</html>

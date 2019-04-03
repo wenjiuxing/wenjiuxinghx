@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<meta charset="UTF-8">
+
+<head>
+    <script src='./jquery-2.1.1.min.js'></script>
+  
+    <script src='./LodopFuncs.js'></script>
+    <script src='./BulidModel.js'></script>
+    <script src='./DataOjbect.js'></script>
+    <script src='./GetPrintValues.js'></script>
+    <script src='./DoPrintModels.js'></script>
+
+</head>
+<style>
+</style>
+
+<body>
+<button onclick="Ware()" style='width:110px;height:32px;background:#1890ff;color:white;border:none;border-radius:3px;line-height: 20px'>打印</button>
+
+</body>
+<script>
+
+    function Ware() {
+        var selectedRow = JSON.parse(sessionStorage.selectedRows)
+        var code=sessionStorage.warehouseCode
+        var warehouseType=sessionStorage.warehouseType
+        console.log(code, warehouseType)
+//        doPrint(code,sessionStorage.companyName)
+        console.log(sessionStorage.typeprint)
+        
+        if(sessionStorage.WriteOff=="true"){
+            if(selectedRow.length==1){
+            doSaleWareHouseDeliveryPrint(0,JSON.parse(sessionStorage.factory),code,sessionStorage.companyName+'(冲销)',sessionStorage.typeprint)
+            }
+            else{
+               for(var i=0;i<selectedRow.length;i++){
+                for (var i = 0; i < selectedRow.length; i++) {
+                (function(){
+                    doSaleWareHouseDeliveryPrint(1,JSON.parse(sessionStorage.factory),selectedRow[i].outWarehouseCode,sessionStorage.companyName+'(冲销)',sessionStorage.typeprint)
+
+                    })(i)
+                
+            }
+              
+               }
+           }
+        }else{
+            if(selectedRow.length==1){
+                doSaleWareHouseDeliveryPrint(0,JSON.parse(sessionStorage.factory),code,sessionStorage.companyName,sessionStorage.typeprint)
+            }
+           else{
+               for(var i=0;i<selectedRow.length;i++){
+                (function(){
+                    doSaleWareHouseDeliveryPrint(1,JSON.parse(sessionStorage.factory),selectedRow[i].outWarehouseCode,sessionStorage.companyName,sessionStorage.typeprint)
+
+                    })(i)
+                
+               }
+           }
+        }
+    }
+
+
+</script>
+
+</html>
