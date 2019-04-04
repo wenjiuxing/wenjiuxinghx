@@ -1,7 +1,8 @@
-// ref: https://umijs.org/config/
+
 import { primaryColor } from '../src/defaultSettings';
 
 export default {
+ 
   plugins: [
     [
       'umi-plugin-react',
@@ -47,6 +48,11 @@ export default {
       routes: [{ path: '/user', component: './Welcome' }],
     },
     {
+      path: '/test',
+      component: '../layouts/Test',
+      routes: [{ path: '/test', component: './Welcome', icon: 'smile', }],
+    },
+    {
       path: '/',
       component: '../layouts/BasicLayout',
       routes: [
@@ -78,6 +84,13 @@ export default {
   // https://ant.design/docs/react/customize-theme-cn
   theme: {
     'primary-color': primaryColor,
+  },
+  proxy: {
+    "/api": {
+      "target": "http://10.124.210.86",
+      "changeOrigin": true,
+      "pathRewrite": {"^/api":""}
+    }
   },
   externals: {
     '@antv/data-set': 'DataSet',
