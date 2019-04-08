@@ -3,7 +3,9 @@
 import { primaryColor } from './src/defaultSettings'
 
 export default {
- 
+  base: '/mip-front/',
+  publicPath: '/mip-front/',
+  hash: true,
   plugins: [
     [
       'umi-plugin-react',
