@@ -1,7 +1,7 @@
 import React, { PureComponent, Suspense } from 'react';
 import { Layout } from 'antd';
 import classNames from 'classnames';
-import Link from 'umi/link';
+// import Link from 'umi/link';
 import styles from './index.less';
 import PageLoading from '../PageLoading';
 import { getDefaultCollapsedSubMenus } from './SiderMenuUtils';
@@ -46,6 +46,7 @@ export default class SiderMenu extends PureComponent {
   };
 
   render() {
+    // eslint-disable-next-line no-unused-vars
     const { logo, collapsed, onCollapse, fixSiderbar, theme } = this.props;
     const { openKeys } = this.state;
     const defaultProps = collapsed ? {} : { openKeys };
@@ -66,10 +67,10 @@ export default class SiderMenu extends PureComponent {
         className={siderClassName}
       >
         <div className={styles.logo} id="logo">
-          <Link to="/">
+          {/* <Link to="/">
             <img src={logo} alt="logo" />
             <h1>Ant Design Pro</h1>
-          </Link>
+          </Link> */}
         </div>
         <Suspense fallback={<PageLoading />}>
           <BaseMenu

@@ -1,5 +1,6 @@
 
-import { primaryColor } from '../src/defaultSettings';
+// import { primaryColor } from '../src/defaultSettings';
+import { primaryColor } from './src/defaultSettings'
 
 export default {
  
@@ -20,6 +21,7 @@ export default {
           baseNavigator: true, // default true, when it is true, will use `navigator.language` overwrite default
         },
         dynamicImport: {
+          dynamicImport: true,
           loadingComponent: './components/PageLoading/index',
         },
       },
@@ -48,15 +50,21 @@ export default {
       routes: [{ path: '/user', component: './Welcome' }],
     },
     {
-      path: '/test',
+      path: '/test/:page',
       component: '../layouts/Test',
-      routes: [{ path: '/test', component: './Welcome', icon: 'smile', }],
+     
     },
     {
       path: '/',
       component: '../layouts/BasicLayout',
       routes: [
-        { path: '/', redirect: '/welcome' },
+        { path: '/', redirect: '/tax' },
+        {
+          path: '/tax',
+          name: 'tax',
+          icon: 'plus',
+          component: '../layouts/Test',
+        },
         // dashboard
         {
           path: '/welcome',
@@ -64,11 +72,7 @@ export default {
           icon: 'smile',
           component: './Welcome',
         },
-        {
-          path: 'https://github.com/umijs/umi-blocks/tree/master/ant-design-pro',
-          name: 'more-blocks',
-          icon: 'block',
-        },
+       
       ],
     },
   ],

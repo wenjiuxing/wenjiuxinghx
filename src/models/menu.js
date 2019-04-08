@@ -7,8 +7,10 @@ const { check } = Authorized;
 
 // Conversion router to menu.
 function formatter(data, parentAuthority, parentName) {
+ 
   return data
     .map(item => {
+     
       if (!item.name || !item.path) {
         return null;
       }
@@ -26,6 +28,7 @@ function formatter(data, parentAuthority, parentName) {
         locale,
         authority: item.authority || parentAuthority,
       };
+     
       if (item.routes) {
         const children = formatter(item.routes, item.authority, locale);
         // Reduce memory usage
@@ -60,6 +63,7 @@ const filterMenuData = menuData => {
   if (!menuData) {
     return [];
   }
+  console.log(menuData)
   return menuData
     .filter(item => item.name && !item.hideInMenu)
     .map(item => check(item.authority, getSubMenu(item)))
@@ -100,6 +104,7 @@ export default {
       const { routes, authority } = payload;
       const menuData = filterMenuData(memoizeOneFormatter(routes, authority));
       const breadcrumbNameMap = memoizeOneGetBreadcrumbNameMap(menuData);
+      
       yield put({
         type: 'save',
         payload: { menuData, breadcrumbNameMap },

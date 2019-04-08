@@ -1,11 +1,12 @@
 
 import React from 'react';
-import FooterView from '@/layouts/Footer';
+// import FooterView from '@/layouts/Footer';
 import { connect } from 'dva';
+import ContactsChild from '@/components/Test/testChild'
 
-
-@connect(({test,loading})=>({
+@connect(({test,user,loading})=>({
   test,
+  user:user.list,
   loading: loading.models.test}
 ))
 
@@ -25,7 +26,7 @@ class Contacts extends React.Component {
     
       stateChange=()=>{
         const { dispatch} = this.props;
-       
+       console.log(dispatch)
         dispatch({
           type:'test/name',
         })
@@ -34,15 +35,19 @@ class Contacts extends React.Component {
         
 
     render() {
+    
       console.log(this.props)
       
      
-      const {test}=this.props
+      const {test,match}=this.props
       return (
        
-        <div onClick={this.stateChange}>{test.name}
+        
+        // eslint-disable-next-line no-undef
+        <div style={{cursor:"pointer"}} onClick={this.stateChange}>
+          {test.name}{match.params.page}
 
-          <FooterView />
+          <ContactsChild {...this.props} />
 
         </div>
 

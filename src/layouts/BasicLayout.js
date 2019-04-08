@@ -10,12 +10,14 @@ import pathToRegexp from 'path-to-regexp';
 import Media from 'react-media';
 import { formatMessage } from 'umi/locale';
 import Authorized from '@/utils/Authorized';
+
+import router from 'umi/router';
 import logo from '../assets/logo.svg';
 import Footer from './Footer';
 import Header from './Header';
 import Context from './MenuContext';
+// eslint-disable-next-line no-unused-vars
 import SiderMenu from '@/components/SiderMenu';
-
 import styles from './BasicLayout.less';
 
 const { Content } = Layout;
@@ -139,8 +141,13 @@ class BasicLayout extends React.PureComponent {
     });
   };
 
+  routerHref=()=>{
+    router.push('/test/:one')
+  }
+
   render() {
     const {
+      // eslint-disable-next-line no-unused-vars
       navTheme,
       layout: PropsLayout,
       children,
@@ -151,7 +158,8 @@ class BasicLayout extends React.PureComponent {
       route: { routes },
       fixedHeader,
     } = this.props;
-
+    console.log(this.props)
+    // eslint-disable-next-line no-unused-vars
     const isTop = PropsLayout === 'topmenu';
     const routerConfig = this.getRouterAuthority(pathname, routes);
     const contentStyle = !fixedHeader ? { paddingTop: 0 } : {};
@@ -195,7 +203,10 @@ class BasicLayout extends React.PureComponent {
           <ContainerQuery query={query}>
             {params => (
               <Context.Provider value={this.getContext()}>
-                <div className={classNames(params)}>{layout}</div>
+              
+                <div className={classNames(params)}>{layout}  
+                  <p onClick={this.routerHref}>去</p>
+                </div>
               </Context.Provider>
             )}
           </ContainerQuery>
