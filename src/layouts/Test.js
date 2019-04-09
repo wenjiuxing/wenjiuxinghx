@@ -2,7 +2,7 @@
 import React from 'react';
 // import FooterView from '@/layouts/Footer';
 import { connect } from 'dva';
-import ContactsChild from '@/components/Test/testChild'
+// import ContactsChild from '@/components/Test/testChild'
 
 @connect(({test,user,loading})=>({
   test,
@@ -47,7 +47,7 @@ class Contacts extends React.Component {
         <div style={{cursor:"pointer"}} onClick={this.stateChange}>
           {test.name}{match.params.page}
 
-          <ContactsChild {...this.props} />
+          {/* <ContactsChild {...this.props} /> */}
 
         </div>
 

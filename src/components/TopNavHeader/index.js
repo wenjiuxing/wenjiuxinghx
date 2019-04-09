@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react';
-import Link from 'umi/link';
+// import Link from 'umi/link';
 import RightContent from '../GlobalHeader/RightContent';
 import BaseMenu from '../SiderMenu/BaseMenu';
 import { getFlatMenuKeys } from '../SiderMenu/SiderMenuUtils';
@@ -17,6 +17,7 @@ export default class TopNavHeader extends PureComponent {
   }
 
   render() {
+    // eslint-disable-next-line no-unused-vars
     const { theme, contentWidth, menuData, logo } = this.props;
     const { maxWidth } = this.state;
     const flatMenuKeys = getFlatMenuKeys(menuData);
@@ -30,10 +31,10 @@ export default class TopNavHeader extends PureComponent {
         >
           <div className={styles.left}>
             <div className={styles.logo} key="logo" id="logo">
-              <Link to="/">
+              {/* <Link to="/">
                 <img src={logo} alt="logo" />
                 <h1>Ant Design Pro</h1>
-              </Link>
+              </Link> */}
             </div>
             <div
               style={{
