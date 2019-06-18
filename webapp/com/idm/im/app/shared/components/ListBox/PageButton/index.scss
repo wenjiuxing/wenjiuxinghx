@@ -1,0 +1,67 @@
+.page{
+  height: 25px;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  align-items: center;
+  justify-content: center;
+
+  font-size: 12px;
+  color: #808080;
+}
+.pageDomain{
+
+  li{
+    float: left;
+  }
+}
+.pageFirst{
+  cursor: pointer;
+  height: 20px;
+  width: 20px;
+  background: url(../../../../images/arr_15-2.png) no-repeat center;
+}
+.pagePre{
+  cursor: pointer;
+  height: 20px;
+  width: 20px;
+  background: url(../../../../images/arr_11.png) no-repeat center;
+}
+.pageNum{
+  margin: 0 20px;
+}
+.pageCurrent{
+  width: 30px;
+  border: 1px solid #d9d9d9;
+  border-radius: 3px;
+  text-align: center;
+  padding: 2px 5px 0 5px;
+  margin-right: 5px;
+  font-size: 12px;
+  color: #808080;
+}
+.pageNext{
+  cursor: pointer;
+  height: 20px;
+  width: 20px;
+  background: url(../../../../images/arr_03.png) no-repeat center;
+}
+.pageLast{
+  cursor: pointer;
+  height: 20px;
+  width: 20px;
+  background: url(../../../../images/arr_07-2.png) no-repeat center;
+
+}
+.pageSetSize{
+  margin-left: 20px;
+}
+.pageSelectSize{
+  border: 1px solid #d9d9d9;
+  font-size: 12px;
+  color: #808080;
+}
+.pageInfo{
+  right: 40px;
+  position: absolute;
+}

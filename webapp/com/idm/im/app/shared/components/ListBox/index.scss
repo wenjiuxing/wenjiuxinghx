@@ -1,0 +1,14 @@
+.page{
+  height: 40px;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  align-items: center;
+  justify-content: center;
+}
+.totalCount{
+  height: 28px;
+  line-height: 30px;
+  font-size: 12px;
+  margin-left: 10px;
+}
