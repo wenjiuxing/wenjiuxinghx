@@ -18,7 +18,7 @@ const backgroudn = require('../../../static/images/004.jpg')
 const backgroudntL = require('../../../static/images/005.jpg')
 const backgroudntR = require('../../../static/images/006.jpg')
 const cad = require('../../../static/images/010.png')
-const img002=require('../../../static/images/002.png')
+const img002 = require('../../../static/images/002.png')
 export interface Props {
 
 }
@@ -30,7 +30,11 @@ export default class Main extends React.Component<Props, {}> {
 
 
     componentDidMount() {
-
+        this.GetmenuDayDate()
+        this.GetmenuWeekDate()
+        this.GetmenuYearMonth()
+        this.getNumber()
+        document.getElementById('possidiv').setAttribute('style', 'display:none')
         //获取日期
         let date = new Date();
         let seperator1 = "/";
@@ -81,271 +85,12 @@ export default class Main extends React.Component<Props, {}> {
         // 基于准备好的dom，初始化echarts实例
         console.log(echarts)
 
-        let myChart: any = echarts.init(document.getElementById('main'));
-        // 绘制图表
 
-        //柱状图
-        let option: any = {
-            color: ['#003366', '#006699', '#4cabce', '#e5323e'],
-
-            tooltip: {
-                trigger: 'axis',
-                axisPointer: {
-                    type: 'shadow'
-                }
-            },
-            legend: {
-                data: ['Forest', 'Steppe', 'Desert', 'Wetland'],
-                textStyle: {
-                    color: 'white'
-                }
-            },
-            toolbox: {
-                show: true,
-                orient: 'vertical',
-                left: 'right',
-                top: 'center',
-                feature: {
-                    mark: { show: true },
-                    dataView: { show: true, readOnly: false },
-                    magicType: { show: true, type: ['line', 'bar', 'stack', 'tiled'] },
-                    restore: { show: true },
-                    saveAsImage: { show: true }
-                }
-            },
-            calculable: true,
-            xAxis: [
-                {
-                    type: 'category',
-                    axisTick: { show: false },
-                    data: [{ value: '2012', textStyle: { color: 'white' } }, { value: '2013', textStyle: { color: 'white' } }, { value: '2014', textStyle: { color: 'white' } }, { value: '2015', textStyle: { color: 'white' } }, { value: '2016', textStyle: { color: 'white' } }],
-                    axisLine: {
-                        lineStyle: {
-                            color: 'white'
-                        }
-                    }
-                }
-            ],
-            yAxis: [
-                {
-                    type: 'value',
-                    axisLine: {
-                        lineStyle: {
-                            color: 'white'
-                        }
-                    }
-                }
-            ],
-            series: [
-                {
-                    name: 'Forest',
-                    type: 'bar',
-                    barGap: 0,
-
-                    data: [320, 332, 301, 334, 390]
-                },
-                {
-                    name: 'Steppe',
-                    type: 'bar',
-
-                    data: [220, 182, 191, 234, 290]
-                },
-                {
-                    name: 'Desert',
-                    type: 'bar',
-
-                    data: [150, 232, 201, 154, 190]
-                },
-                {
-                    name: 'Wetland',
-                    type: 'bar',
-
-                    data: [98, 77, 101, 99, 40
-                }
-            ]
-        };
-        myChart.setOption(option);
-        window.onresize = myChart.resize
-        //堆叠图
-        let myChartLine: any = echarts.init(document.getElementById('mainLine'));
-        let optionline: any = {
-            title: {
-
-            },
-            tooltip: {
-                trigger: 'axis',
-                axisPointer: {
-                    type: 'cross',
-                    label: {
-                        backgroundColor: '#6a7985'
-                    }
-                }
-            },
-            legend: {
-                data: ['邮件营销', '联盟广告', '视频广告', '直接访问'],
-                textStyle: {
-                    color: 'white'
-                }
-            },
-            toolbox: {
-                feature: {
-                    saveAsImage: {}
-                }
-            },
-            grid: {
-                left: '3%',
-                right: '4%',
-                bottom: '3%',
-                containLabel: true
-            },
-            xAxis: [
-                {
-                    type: 'category',
-                    boundaryGap: false,
-                    data: ['一月', '二月', '三月', '四月', '五月', '六月', '七月', '八月', '九月', '十月', '十一月', '十二月'],
-                    axisLine: {
-                        lineStyle: {
-                            color: 'white'
-                        }
-                    }
-                }
-            ],
-            yAxis: [
-                {
-                    type: 'value',
-                    axisLine: {
-                        lineStyle: {
-                            color: 'white'
-                        }
-                    }
-                }
-            ],
-            series: [
-                {
-                    name: '邮件营销',
-                    type: 'line',
-                    stack: '总量',
-                    areaStyle: {},
-                    data: [120, 132, 101, 134, 90, 230, 210]
-                },
-                {
-                    name: '联盟广告',
-                    type: 'line',
-                    stack: '总量',
-                    areaStyle: {},
-                    data: [220, 182, 191, 234, 290, 330, 310]
-                },
-                {
-                    name: '视频广告',
-                    type: 'line',
-                    stack: '总量',
-                    areaStyle: {},
-                    data: [150, 232, 201, 154, 190, 330, 410]
-                },
-                {
-                    name: '直接访问',
-                    type: 'line',
-                    stack: '总量',
-                    areaStyle: { normal: {} },
-                    data: [320, 332, 301, 334, 390, 330, 320]
-                },
-
-            ]
-        };
-        myChartLine.setOption(optionline);
-        window.onresize = myChartLine.resize
-        //当年每周统计图
-        let myChartall: any = echarts.init(document.getElementById('mainall'));
-        let optionall: any = {
-            title: {
-
-            },
-            tooltip: {
-                trigger: 'axis',
-                axisPointer: {
-                    type: 'cross',
-                    label: {
-                        backgroundColor: '#6a7985'
-                    }
-                }
-            },
-            legend: {
-                data: ['邮件营销', '联盟广告', '视频广告', '直接访问'],
-                textStyle: {
-                    color: 'white'
-                }
-            },
-            toolbox: {
-                feature: {
-                    saveAsImage: {}
-                }
-            },
-            grid: {
-                left: '3%',
-                right: '4%',
-                bottom: '3%',
-                containLabel: true
-            },
-            xAxis: [
-                {
-                    type: 'category',
-                    boundaryGap: false,
-                    data: ['周一', '周二', '周三', '周四', '周五', '周六', '周日'],
-                    axisLine: {
-                        lineStyle: {
-                            color: 'white'
-                        }
-                    }
-                }
-            ],
-            yAxis: [
-                {
-                    type: 'value',
-                    axisLine: {
-                        lineStyle: {
-                            color: 'white'
-                        }
-                    }
-                }
-            ],
-            series: [
-                {
-                    name: '邮件营销',
-                    type: 'line',
-                    stack: '总量',
-                    areaStyle: {},
-                    data: [120, 132, 101, 134, 90, 230, 210]
-                },
-                {
-                    name: '联盟广告',
-                    type: 'line',
-                    stack: '总量',
-                    areaStyle: {},
-                    data: [220, 182, 191, 234, 290, 330, 310]
-                },
-                {
-                    name: '视频广告',
-                    type: 'line',
-                    stack: '总量',
-                    areaStyle: {},
-                    data: [150, 232, 201, 154, 190, 330, 410]
-                },
-                {
-                    name: '直接访问',
-                    type: 'line',
-                    stack: '总量',
-                    areaStyle: { normal: {} },
-                    data: [320, 332, 301, 334, 390, 330, 320]
-                },
-
-            ]
-        };
-        myChartall.setOption(optionall);
-        window.onresize = myChartall.resize
+      
 
     }
     state: any = {
-        visible:false,
+        visible: false,
         time: '',
         days: "",
         date: '',
@@ -358,6 +103,24 @@ export default class Main extends React.Component<Props, {}> {
             outHover: 0
         }
     };
+    getNumber = () => {
+        mainService.GetmenuBynumber().then((res: any) => {
+            let data = res.data
+            this.setState({
+                carNum: {
+                    waitInit: data.waitInStorageCount,
+                    waitRead: data.prepareCarCount,
+                    initOver: data.inventoryCarCount,
+                    waitOut: data.waitOutStorageCount,
+                    amount: data.countIn,
+                    outHover: data.countOut
+                }
+            })
+            console.log(res)
+        }).then((error) => {
+            console.log(error)
+        })
+    }
     //执行时间
     timeChange = () => {
         let date = new Date();
@@ -375,9 +138,270 @@ export default class Main extends React.Component<Props, {}> {
 
 
     }
-    visableT=(t)=>{
+    //获取年月报表
+    GetmenuYearMonth = () => {
+        mainService.GetmenuYearMonth().then((res: any) => {
+            console.log(res)
+
+            let myChart: any = echarts.init(document.getElementById('main'));
+            // 绘制图表
+
+            //柱状图
+            let option: any = {
+                color: ['#24ACF2', '#006699', '#4cabce'],
+
+                tooltip: {
+                    trigger: 'axis',
+                    axisPointer: {
+                        type: 'shadow'
+                    }
+                },
+                legend: {
+                    data: ['库存量', '入库量', '出库量'],
+                    textStyle: {
+                        color: 'white'
+                    }
+                },
+                toolbox: {
+                    show: true,
+                    orient: 'vertical',
+                    left: 'right',
+                    top: 'center',
+                    feature: {
+                        mark: { show: true },
+                        dataView: { show: true, readOnly: false },
+                        magicType: { show: true, type: ['line', 'bar', 'stack', 'tiled'] },
+                        restore: { show: true },
+                        saveAsImage: { show: true }
+                    }
+                },
+                calculable: true,
+                xAxis: [
+                    {
+                        type: 'category',
+                        axisTick: { show: false },
+                        // data: [{ value: '2012', textStyle: { color: 'white' } }, { value: '2013', textStyle: { color: 'white' } }, { value: '2014', textStyle: { color: 'white' } }, { value: '2015', textStyle: { color: 'white' } }, { value: '2016', textStyle: { color: 'white' } }],
+                        data: res.data.time,
+                        axisLine: {
+                            lineStyle: {
+                                color: 'white'
+                            }
+                        }
+                    }
+                ],
+                yAxis: [
+                    {
+                        type: 'value',
+                        axisLine: {
+                            lineStyle: {
+                                color: 'white'
+                            }
+                        }
+                    }
+                ],
+                series: [
+                    {
+                        name: '库存量',
+                        type: 'bar',
+                        barGap: 0,
+
+                        data: res.data.inventory
+                    },
+                    {
+                        name: '入库量',
+                        type: 'bar',
+
+                        data: res.data.inStorage
+                    },
+                    {
+                        name: '出库量',
+                        type: 'bar',
+
+                        data: res.data.outStorage
+                    },
+
+                ]
+            };
+            myChart.setOption(option);
+            window.onresize = myChart.resize
+        })
+    }
+    GetmenuWeekDate = () => {
+        mainService.GetmenuWeekDate().then((res: any) => {
+            //堆叠图
+            let myChartLine: any = echarts.init(document.getElementById('mainLine'));
+            let optionline: any = {
+                title: {
+
+                },
+                tooltip: {
+                    trigger: 'axis',
+                    axisPointer: {
+                        type: 'cross',
+                        label: {
+                            backgroundColor: '#6a7985'
+                        }
+                    }
+                },
+                legend: {
+                    data: ['库存量', '入库量', '出库量'],
+                    textStyle: {
+                        color: 'white'
+                    }
+                },
+                toolbox: {
+                    feature: {
+                        saveAsImage: {}
+                    }
+                },
+                grid: {
+                    left: '3%',
+                    right: '4%',
+                    bottom: '3%',
+                    containLabel: true
+                },
+                xAxis: [
+                    {
+                        type: 'category',
+                        boundaryGap: false,
+                        //  data: ['一月', '二月', '三月', '四月', '五月', '六月', '七月', '八月', '九月', '十月', '十一月', '十二月'],
+                        data: res.data.time,
+                        axisLine: {
+                            lineStyle: {
+                                color: 'white'
+                            }
+                        }
+                    }
+                ],
+                yAxis: [
+                    {
+                        type: 'value',
+                        axisLine: {
+                            lineStyle: {
+                                color: 'white'
+                            }
+                        }
+                    }
+                ],
+                series: [
+                    {
+                        name: '库存量',
+                        type: 'line',
+                        stack: '总量',
+                        areaStyle: {},
+                        data: res.data.inventory
+                    },
+                    {
+                        name: '入库量',
+                        type: 'line',
+                        stack: '总量',
+                        areaStyle: {},
+                        data: res.data.inStorage
+                    },
+                    {
+                        name: '出库量',
+                        type: 'line',
+                        stack: '总量',
+                        areaStyle: {},
+                        data: res.data.outStorage
+                    }
+
+
+                ]
+            };
+            myChartLine.setOption(optionline);
+            window.onresize = myChartLine.resize
+        })
+    }
+    GetmenuDayDate=()=>{
+        mainService.GetmenuDayDate().then((res:any)=>{
+  //当年每周统计图
+  let myChartall: any = echarts.init(document.getElementById('mainall'));
+  let optionall: any = {
+      title: {
+
+      },
+      tooltip: {
+          trigger: 'axis',
+          axisPointer: {
+              type: 'cross',
+              label: {
+                  backgroundColor: '#6a7985'
+              }
+          }
+      },
+      legend: {
+          data: ['库存量', '入库量', '出库量'],
+          textStyle: {
+              color: 'white'
+          }
+      },
+      toolbox: {
+          feature: {
+              saveAsImage: {}
+          }
+      },
+      grid: {
+          left: '3%',
+          right: '4%',
+          bottom: '3%',
+          containLabel: true
+      },
+      xAxis: [
+          {
+              type: 'category',
+              boundaryGap: false,
+              data: res.data.time,
+              axisLine: {
+                  lineStyle: {
+                      color: 'white'
+                  }
+              }
+          }
+      ],
+      yAxis: [
+          {
+              type: 'value',
+              axisLine: {
+                  lineStyle: {
+                      color: 'white'
+                  }
+              }
+          }
+      ],
+      series: [
+          {
+              name: '库存量',
+              type: 'line',
+              stack: '总量',
+              areaStyle: {},
+              data: res.data.inventory
+          },
+          {
+              name: '入库量',
+              type: 'line',
+              stack: '总量',
+              areaStyle: {},
+              data: res.data.inStorage
+          },
+          {
+              name: '出库量',
+              type: 'line',
+              stack: '总量',
+              areaStyle: {},
+              data: res.data.outStorage
+          },
+
+
+      ]
+  };
+  myChartall.setOption(optionall);
+  window.onresize = myChartall.resize
+        })
+    }
+    visableT = (t) => {
         this.setState({
-            visible:t
+            visible: t
         })
     }
 
@@ -402,44 +426,45 @@ export default class Main extends React.Component<Props, {}> {
                     <Row gutter={16}>
                         <Col className="gutter-row" span={4}>
                             <div className="gutter-box backGutter">
-                                <img src={img002} width="100%" height='100px' alt=""/>
+                                <img src={img002} width="100%" height='100px' alt="" />
                                 <p>待入库车辆</p>
                                 <p className='p_second'>{this.state.carNum.waitInit}</p>
                             </div>
                         </Col>
                         <Col className="gutter-row" span={4}>
                             <div className="gutter-box backGutter">
-                            <img src={img002} width="100%" height='100px' alt=""/>
+                                <img src={img002} width="100%" height='100px' alt="" />
                                 <p>待备车车辆</p>
                                 <p className='p_second'>{this.state.carNum.waitRead}</p>
                             </div>
                         </Col>
+                       
                         <Col className="gutter-row" span={4}>
                             <div className="gutter-box backGutter">
 
-                            <img src={img002} width="100%" height='100px' alt=""/>
-                                <p>已备车车辆</p>
+                                <img src={img002} width="100%" height='100px' alt="" />
+                                <p>库存台数</p>
                                 <p className='p_second'>{this.state.carNum.initOver}</p>
                             </div>
                         </Col>
                         <Col className="gutter-row" span={4}>
                             <div className="gutter-box backGutter">
-                            <img src={img002} width="100%" height='100px' alt=""/>
+                                <img src={img002} width="100%" height='100px' alt="" />
                                 <p>待出库车辆</p>
                                 <p className='p_second'> {this.state.carNum.waitOut}</p>
                             </div>
                         </Col>
                         <Col className="gutter-row" span={4}>
                             <div className="gutter-box backGutter">
-                            <img src={img002} width="100%" height='100px' alt=""/>
-                                <p>库位信息台账</p>
+                                <img src={img002} width="100%" height='100px' alt="" />
+                                <p>累计入库台数</p>
                                 <p className='p_second'>{this.state.carNum.amount}</p>
                             </div>
                         </Col>
                         <Col className="gutter-row" span={4}>
                             <div className="gutter-box backGutter">
-                            <img src={img002} width="100%" height='100px' alt=""/>
-                                <p>交接出库台账</p>
+                                <img src={img002} width="100%" height='100px' alt="" />
+                                <p>累计出库台数</p>
                                 <p className='p_second'>{this.state.carNum.outHover}</p>
                             </div>
                         </Col>
@@ -450,18 +475,18 @@ export default class Main extends React.Component<Props, {}> {
                             <div className="gutter-box">
                                 <Col className='gutter-row' span={24} style={{ border: '1px solid #144E70', minHeight: '300px' }}>
                                     <Col span={15} style={{ margin: '20px' }} >
-                                        <img src={cad} onDoubleClick={()=>this.visableT(true)} style={{ float: 'left' }} width='100%' alt="" />
+                                        <img src={cad} onDoubleClick={() => this.visableT(true)} style={{ float: 'left' }} width='100%' alt="" />
                                     </Col>
                                     <Col span={6} style={{ marginTop: '100px' }} >
-                                        <div  style={{ display: 'inline-block', width: '10px', height: '10px', background: '#0340FF', borderRadius: '10px', marginRight: '10px' }}></div>
+                                        <div style={{ display: 'inline-block', width: '10px', height: '10px', background: '#0340FF', borderRadius: '10px', marginRight: '10px' }}></div>
                                         <span >常规库存车</span>
-                                    <br />
+                                        <br />
                                         <div style={{ display: 'inline-block', width: '10px', height: '10px', background: 'green', borderRadius: '10px', marginRight: '10px' }}></div>
                                         <span >待备车车辆</span>
-                                    <br />
+                                        <br />
                                         <div style={{ display: 'inline-block', width: '10px', height: '10px', background: 'red', borderRadius: '10px', marginRight: '10px' }}></div>
                                         <span >待出库车辆</span>
-                                </Col>
+                                    </Col>
                                 </Col>
                                 <Col className='gutter-row' span={24} style={{ marginTop: '20px', border: '1px solid #144E70', }}>
                                     <Col className='gutter-row' span={12} >
@@ -474,7 +499,7 @@ export default class Main extends React.Component<Props, {}> {
                                     </Col>
                                     <Col className='gutter-row' span={24} >
                                         <h3 style={{ textAlign: 'center', color: 'white' }}>当年每周作业统计</h3>
-                                        <div id="mainall" style={{ width: '100%', height: '200px'}} ></div>
+                                        <div id="mainall" style={{ width: '100%', height: '200px' }} ></div>
                                     </Col>
                                 </Col>
                             </div>
@@ -502,13 +527,13 @@ export default class Main extends React.Component<Props, {}> {
                     </Row>
                 </div>
                 <Modal
-             width="500"
-             onCancel={()=>this.visableT(false)}       
-          visible={this.state.visible}
-          footer={null}
+                    width="500"
+                    onCancel={() => this.visableT(false)}
+                    visible={this.state.visible}
+                    footer={null}
                 >
-         <img src={cad} width="100%" alt=""/>
-        </Modal>
+                    <img src={cad} width="100%" alt="" />
+                </Modal>
             </div >
 
         );

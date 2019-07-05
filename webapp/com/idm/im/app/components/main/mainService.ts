@@ -7,12 +7,12 @@ import {axios} from '../../config/apiService';
 import Ip from '../../config/apiIp';
 export const mainService={
 
-    GetmenuByuser:(param:any) => {
+    GetmenuBynumber:() => {
         return new Promise(function(resolve,reject){
-            axios.get(Ip.IpMain+'/wms/sysUacUsers/findByUserName?userName='+param).then(
+            axios.get(Ip.IpMain+'/get-stat-num.htm?storageName=草堂库').then(
                 (headers) => {
                     resolve(headers);
-                    console.log(headers,'header')
+                   
                 }
             ).catch(
                 (data) => {
@@ -21,5 +21,49 @@ export const mainService={
             )
         })
     },
+    
+    GetmenuYearMonth:() => {
+        return new Promise(function(resolve,reject){
+            axios.get(Ip.IpMain+'/get-day-data.htm?storageName=草堂库').then(
+                (headers) => {
+                    resolve(headers);
+                    
+                }
+            ).catch(
+                (data) => {
+                    reject(data);
+                }
+            )
+        })
+    },
+    GetmenuWeekDate:() => {
+        return new Promise(function(resolve,reject){
+            axios.get(Ip.IpMain+'/get-month-data.htm?storageName=草堂库').then(
+                (headers) => {
+                    resolve(headers);
+                    
+                }
+            ).catch(
+                (data) => {
+                    reject(data);
+                }
+            )
+        })
+    },
+    GetmenuDayDate:() => {
+        return new Promise(function(resolve,reject){
+            axios.get(Ip.IpMain+'/get-week-data.htm?storageName=草堂库').then(
+                (headers) => {
+                    resolve(headers);
+                    
+                }
+            ).catch(
+                (data) => {
+                    reject(data);
+                }
+            )
+        })
+    },
+    
     
 }

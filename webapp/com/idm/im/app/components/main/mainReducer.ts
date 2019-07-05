@@ -52,7 +52,7 @@ export const GetmenuByuser = (param:any,param2:any) => {
   
     return async (dispatch:any) => {
         try{
-            await mainService.GetmenuByuser(param).then((res:any)=>{
+            await mainService.GetmenuByuser().then((res:any)=>{
             console.log(res)
                 dispatch(menuList(res.data['MenuTree Information']))
                 sessionStorage.setItem('history',param2)

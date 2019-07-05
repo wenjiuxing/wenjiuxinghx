@@ -1,63 +1,4 @@
-// import * as React from 'react';
-// import { Route, BrowserRouter, Switch, Redirect, NavLink, Link } from 'react-router-dom';
 
-// import { Row, Col } from 'antd';
-// // 引入 ECharts 主模块
-// // 引入 ECharts 主模块(这里路径引入错误参考上文文档描述)
-// import * as echarts from 'echarts/lib/echarts';
-
-// // 引入柱状图（这里放你需要使用的echarts类型 很重要）
-// import 'echarts/lib/chart/map';
-// import 'echarts/lib/chart/scatter';
-// import 'echarts/lib/chart/effectScatter'; 
-// import 'echarts/lib/chart/custom'
-// let chinaJson=require('echarts/map/json/china.json')
-// // 引入提示框和标题组件
-// import 'echarts/lib/component/tooltip';
-// import 'echarts/lib/component/title';
-// import 'echarts/lib/component/legend';
-// import { url } from 'inspector';
-// import { NONAME } from 'dns';
-// const backgroudn = require('../../../static/images/001.png')
-// echarts.registerMap('china', chinaJson)
-// export interface Props {
-//     history?:any
-// }
-
-// export default class Map extends React.Component<Props, {}> {
-//     constructor(props: Props) {
-//         super(props);
-//     }
-
-
-//     componentDidMount() {
-      
-        
-//     }
-    
-    
-//     //执行时间
-   
-
-//     render() {
-
-
-
-//         return (
-
-//             <div className="gutter-example" id="map_DIV">
-//                 <div className='back_div'>
-                  
-//                  <iframe id='ifram'  src="../../../../../../../../../map/index.html" style={{border:'none',width:'100%',height:'200px'}}></iframe>
-//                 </div>
-//                 123123213
-//             </div>
-            
-          
-
-//         );
-//     }
-// }
 import * as React from 'react';
 import { Route, BrowserRouter, Switch, Redirect, NavLink, Link } from 'react-router-dom';
 
@@ -77,7 +18,7 @@ let chinaJson=require('echarts/map/json/china.json')
 import 'echarts/lib/component/tooltip';
 import 'echarts/lib/component/title';
 import 'echarts/lib/component/legend';
-
+import { mapService } from './mapService'
 import { url } from 'inspector';
 const backgroudn = require('../../../static/images/001.png')
 echarts.registerMap('china', chinaJson)
@@ -92,277 +33,29 @@ export default class Map extends React.Component<Props, {}> {
 
 
     componentDidMount() {
-        console.log(window.innerHeight)
+        mapService.GetmenuBynum().then((datas:any)=>{
+            let data=datas.data
+            document.getElementById('storageNumTotal').innerHTML=data.storageNumTotal
+  document.getElementById('totalStorage').innerHTML=data.totalStorage
+  document.getElementById('totalInventory').innerHTML=data.totalInventory
+
+  document.getElementById('waitInStorageTotal').innerHTML=data.waitInStorageTotal
+  document.getElementById('waitOutStorageTotal').innerHTML=data.waitOutStorageTotal
+  document.getElementById('accessedStorageTotal').innerHTML=data.accessedStorageTotal
+  document.getElementById('exStorageTotal').innerHTML=data.exStorageTotal
+        })
+        mapService.GetmenuByuser().then((res:any)=>{
+                
+                document.getElementById('possidiv').setAttribute('style','display:block')
         var dom = document.getElementById("container");
         
         let myChart:any = echarts.init(dom);
-       
-        // let option:any= {
-        //     title : {
-        //         text: '地图',
-               
-        //         left: 'center',
-        //         textStyle:{
-        //             color:'white'
-        //         }
-        //     },
-        //     tooltip : {
-        //         trigger: 'item'
-        //     },
-        //     legend: {
-        //         orient: 'vertical',
-        //         left: 'left',
-        //         // data:['iphone3','iphone4','iphone5']
-        //     },
-          
-        //     series : [
-        //         {
-        //             // name: 'iphone3',
-        //             type: 'map',
-        //             mapType: 'china',
-        //             roam: true,
-        //             bmap: {
-        //                 center: [104.114129, 37.550339],
-        //                 zoom: 5,
-        //                 roam: true,
-                       
-        //             },
-        //             label: {
-        //                 normal: {
-        //                     show: true
-        //                 },
-        //                 emphasis: {
-        //                     show: true
-        //                 }
-        //             },
-        //             data:[
-        //                 { name: '西藏', value: 605.83 },
-        //                 { name: '青海', value: 1670.44 },
-        //                 { name: '宁夏', value: 2102.21 },
-        //                 { name: '海南', value: 2522.66 },
-        //                 { name: '甘肃', value: 5020.37 },
-        //                 { name: '贵州', value: 5701.84 },
-        //                 { name: '新疆', value: 6610.05 },
-        //                 { name: '云南', value: 8893.12 },
-        //                 { name: '重庆', value: 10011.37 },
-        //                 { name: '吉林', value: 10568.83 },
-        //                 { name: '山西', value: 11237.55 },
-        //                 { name: '天津', value: 11307.28 },
-        //                 { name: '江西', value: 11702.82 },
-        //                 { name: '广西', value: 11720.87 },
-        //                 { name: '陕西', value: 12512.3 },
-        //                 { name: '黑龙江', value: 12582 },
-        //                 { name: '内蒙古', value: 14359.88 },
-        //                 { name: '安徽', value: 15300.65 },
-        //                 { name: '北京', value: 16251.93, selected: true },
-        //                 { name: '福建', value: 17560.18 },
-        //                 { name: '上海', value: 19195.69, selected: true },
-        //                 { name: '湖北', value: 19632.26 },
-        //                 { name: '湖南', value: 19669.56 },
-        //                 { name: '四川', value: 21026.68 },
-        //                 { name: '辽宁', value: 22226.7 },
-        //                 { name: '河北', value: 24515.76 },
-        //                 { name: '河南', value: 26931.03 },
-        //                 { name: '浙江', value: 32318.85 },
-        //                 { name: '山东', value: 45361.85 },
-        //                 { name: '江苏', value: 49110.27 },
-        //                 { name: '广东', value: 53210.28, selected: true },
-        //             ]
-        //         }
-        //     ]
-        // };
-        var data = [
-            {name: '海门', value: 9},
-            {name: '鄂尔多斯', value: 12},
-            {name: '招远', value: 12},
-            {name: '舟山', value: 12},
-            {name: '齐齐哈尔', value: 14},
-            {name: '盐城', value: 15},
-            {name: '赤峰', value: 16},
-            {name: '青岛', value: 18},
-            {name: '乳山', value: 18},
-            {name: '金昌', value: 19},
-            {name: '泉州', value: 21},
-            {name: '莱西', value: 21},
-            {name: '日照', value: 21},
-            {name: '胶南', value: 22},
-            {name: '南通', value: 23},
-            {name: '拉萨', value: 24},
-            {name: '云浮', value: 24},
-            {name: '梅州', value: 25},
-            {name: '文登', value: 25},
-            {name: '上海', value: 25},
-            {name: '攀枝花', value: 25},
-            {name: '威海', value: 25},
-            {name: '承德', value: 25},
-            {name: '厦门', value: 26},
-            {name: '汕尾', value: 26},
-            {name: '潮州', value: 26},
-            {name: '丹东', value: 27},
-            {name: '太仓', value: 27},
-            {name: '曲靖', value: 27},
-            {name: '烟台', value: 28},
-            {name: '福州', value: 29},
-            {name: '瓦房店', value: 30},
-            {name: '即墨', value: 30},
-            {name: '抚顺', value: 31},
-            {name: '玉溪', value: 31},
-            {name: '张家口', value: 31},
-            {name: '阳泉', value: 31},
-            {name: '莱州', value: 32},
-            {name: '湖州', value: 32},
-            {name: '汕头', value: 32},
-            {name: '昆山', value: 33},
-            {name: '宁波', value: 33},
-            {name: '湛江', value: 33},
-            {name: '揭阳', value: 34},
-            {name: '荣成', value: 34},
-            {name: '连云港', value: 35},
-            {name: '葫芦岛', value: 35},
-            {name: '常熟', value: 36},
-            {name: '东莞', value: 36},
-            {name: '河源', value: 36},
-            {name: '淮安', value: 36},
-            {name: '泰州', value: 36},
-            {name: '南宁', value: 37},
-            {name: '营口', value: 37},
-            {name: '惠州', value: 37},
-            {name: '江阴', value: 37},
-            {name: '蓬莱', value: 37},
-            {name: '韶关', value: 38},
-            {name: '嘉峪关', value: 38},
-            {name: '广州', value: 38},
-            {name: '延安', value: 38},
-            {name: '太原', value: 39},
-            {name: '清远', value: 39},
-            {name: '中山', value: 39},
-            {name: '昆明', value: 39},
-            {name: '寿光', value: 40},
-            {name: '盘锦', value: 40},
-            {name: '长治', value: 41},
-            {name: '深圳', value: 41},
-            {name: '珠海', value: 42},
-            {name: '宿迁', value: 43},
-            {name: '咸阳', value: 43},
-            {name: '铜川', value: 44},
-            {name: '平度', value: 44},
-            {name: '佛山', value: 44},
-            {name: '海口', value: 44},
-            {name: '江门', value: 45},
-            {name: '章丘', value: 45},
-            {name: '肇庆', value: 46},
-            {name: '大连', value: 47},
-            {name: '临汾', value: 47},
-            {name: '吴江', value: 47},
-            {name: '石嘴山', value: 49},
-            {name: '沈阳', value: 50},
-            {name: '苏州', value: 50},
-            {name: '茂名', value: 50},
-            {name: '嘉兴', value: 51},
-            {name: '长春', value: 51},
-            {name: '胶州', value: 52},
-            {name: '银川', value: 52},
-            {name: '张家港', value: 52},
-            {name: '三门峡', value: 53},
-            {name: '锦州', value: 54},
-            {name: '南昌', value: 54},
-            {name: '柳州', value: 54},
-            {name: '三亚', value: 54},
-            {name: '自贡', value: 56},
-            {name: '吉林', value: 56},
-            {name: '阳江', value: 57},
-            {name: '泸州', value: 57},
-            {name: '西宁', value: 57},
-            {name: '宜宾', value: 58},
-            {name: '呼和浩特', value: 58},
-            {name: '成都', value: 58},
-            {name: '大同', value: 58},
-            {name: '镇江', value: 59},
-            {name: '桂林', value: 59},
-            {name: '张家界', value: 59},
-            {name: '宜兴', value: 59},
-            {name: '北海', value: 60},
-            {name: '西安', value: 61},
-            {name: '金坛', value: 62},
-            {name: '东营', value: 62},
-            {name: '牡丹江', value: 63},
-            {name: '遵义', value: 63},
-            {name: '绍兴', value: 63},
-            {name: '扬州', value: 64},
-            {name: '常州', value: 64},
-            {name: '潍坊', value: 65},
-            {name: '重庆', value: 66},
-            {name: '台州', value: 67},
-            {name: '南京', value: 67},
-            {name: '滨州', value: 70},
-            {name: '贵阳', value: 71},
-            {name: '无锡', value: 71},
-            {name: '本溪', value: 71},
-            {name: '克拉玛依', value: 72},
-            {name: '渭南', value: 72},
-            {name: '马鞍山', value: 72},
-            {name: '宝鸡', value: 72},
-            {name: '焦作', value: 75},
-            {name: '句容', value: 75},
-            {name: '北京', value: 79},
-            {name: '徐州', value: 79},
-            {name: '衡水', value: 80},
-            {name: '包头', value: 80},
-            {name: '绵阳', value: 80},
-            {name: '乌鲁木齐', value: 84},
-            {name: '枣庄', value: 84},
-            {name: '杭州', value: 84},
-            {name: '淄博', value: 85},
-            {name: '鞍山', value: 86},
-            {name: '溧阳', value: 86},
-            {name: '库尔勒', value: 86},
-            {name: '安阳', value: 90},
-            {name: '开封', value: 90},
-            {name: '济南', value: 92},
-            {name: '德阳', value: 93},
-            {name: '温州', value: 95},
-            {name: '九江', value: 96},
-            {name: '邯郸', value: 98},
-            {name: '临安', value: 99},
-            {name: '兰州', value: 99},
-            {name: '沧州', value: 100},
-            {name: '临沂', value: 103},
-            {name: '南充', value: 104},
-            {name: '天津', value: 105},
-            {name: '富阳', value: 106},
-            {name: '泰安', value: 112},
-            {name: '诸暨', value: 112},
-            {name: '郑州', value: 113},
-            {name: '哈尔滨', value: 114},
-            {name: '聊城', value: 116},
-            {name: '芜湖', value: 117},
-            {name: '唐山', value: 119},
-            {name: '平顶山', value: 119},
-            {name: '邢台', value: 119},
-            {name: '德州', value: 120},
-            {name: '济宁', value: 120},
-            {name: '荆州', value: 127},
-            {name: '宜昌', value: 130},
-            {name: '义乌', value: 132},
-            {name: '丽水', value: 133},
-            {name: '洛阳', value: 134},
-            {name: '秦皇岛', value: 136},
-            {name: '株洲', value: 143},
-            {name: '石家庄', value: 147},
-            {name: '莱芜', value: 148},
-            {name: '常德', value: 152},
-            {name: '保定', value: 153},
-            {name: '湘潭', value: 154},
-            {name: '金华', value: 157},
-            {name: '岳阳', value: 169},
-            {name: '长沙', value: 175},
-            {name: '衢州', value: 177},
-            {name: '廊坊', value: 193},
-            {name: '菏泽', value: 194},
-            {name: '合肥', value: 229},
-            {name: '武汉', value: 273},
-            {name: '大庆', value: 279}
-       ];
+        
+        
+      
+       var data=res.data
+      
+    
        var geoCoordMap = {
            '海门':[121.15,31.89],
            '鄂尔多斯':[109.781327,39.608266],
@@ -558,12 +251,15 @@ export default class Map extends React.Component<Props, {}> {
        
        var convertData = function (data) {
            var res = [];
+           console.log('data',data)
            for (var i = 0; i < data.length; i++) {
-               var geoCoord = geoCoordMap[data[i].name];
+           
+               var geoCoord = geoCoordMap[data[i].city];
+             
                if (geoCoord) {
                    res.push({
-                       name: data[i].name,
-                       value: geoCoord.concat(data[i].value)
+                       name: data[i].city,
+                       value: geoCoord.concat(data[i].nowCount,data[i].totalCount)
                    });
                }
            }
@@ -576,7 +272,14 @@ export default class Map extends React.Component<Props, {}> {
                left: 'center'
            },
            tooltip : {
-               trigger: 'item'
+               trigger: 'item',
+               'confine':true,
+               'formatter':(p)=>{
+                   let dataCon=p.data;
+                   
+                   let txtCon=dataCon.name+'库存:'+dataCon.value[2]+'<br/>'+dataCon.name+'仓库库容:'+dataCon.value[3]
+                   return txtCon
+               }
            },
            bmap: {
                center: [104.114129, 37.550339],
@@ -721,9 +424,7 @@ export default class Map extends React.Component<Props, {}> {
                    type: 'scatter',
                    coordinateSystem: 'bmap',
                    data: convertData(data),
-                   symbolSize: function (val) {
-                       return val[2] / 10;
-                   },
+                  
                    label: {
                        normal: {
                            formatter: '{b}',
@@ -741,15 +442,11 @@ export default class Map extends React.Component<Props, {}> {
                    }
                },
                {
-                   name: 'Top 5',
+                   name: '库存',
                    type: 'effectScatter',
                    coordinateSystem: 'bmap',
-                   data: convertData(data.sort(function (a, b) {
-                       return b.value - a.value;
-                   }).slice(0, 6)),
-                   symbolSize: function (val) {
-                       return val[2] / 10;
-                   },
+                   data: convertData(data),
+                  
                    showEffectOn: 'render',
                    rippleEffect: {
                        brushType: 'stroke'
@@ -758,7 +455,7 @@ export default class Map extends React.Component<Props, {}> {
                    label: {
                        normal: {
                            formatter: '{b}',
-                           position: 'right',
+                           position: 'left',
                            show: true
                        }
                    },
@@ -776,12 +473,17 @@ export default class Map extends React.Component<Props, {}> {
      
         myChart.on('click', function (params) {
             var city = params.name;
+            document.getElementById('possidiv').setAttribute('style','display:none')
             console.log(this.props)
           this.props.history.push('/main')
             }.bind(this));
         myChart.setOption(option);
         window.onresize = myChart.resize
         window.addEventListener('resize', this.handleResize.bind(this))
+            }).then((error)=>{
+                console.log(error)
+            })
+        
        // myChart.setOption(option, true);
         //获取日期
        

@@ -1,14 +1,15 @@
 import axios from 'axios';
 
 // import * as qs from 'qs';
-axios.defaults.headers.post['Content-Type'] = 'application/json;charset=UTF-8';
+axios.defaults.headers.post['Content-Type'] = 'application/json;charset=utf-8';
 // axios.defaults.baseURL = 'http://127.0.0.1:3002';
 
 axios.interceptors.request.use(
   config => {
     const token=sessionStorage.getItem('token')
-      config.headers['Cache-Control']="no-cache"
-      config.headers['If-Modified-Since']='0'
+      // config.headers['Cache-Control']="no-cache"
+      // config.headers['If-Modified-Since']='0'
+      // config.headers['Content-Type']= 'application/json;charset=utf-8'
     if (token!=null) {
         // 这里将token设置到headers中，header的key是Authorization，这个key值根据你的需要进行修改即可
         config.headers.authorization = token
