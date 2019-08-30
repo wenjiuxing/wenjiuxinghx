@@ -48,24 +48,7 @@ export interface MenuList {
 }
 type ProcessAction = ChangeNum|ProcessPage | MenuChange |MenuList| BreadMap
 //请求接口
-export const GetmenuByuser = (param:any,param2:any) => {
-  
-    return async (dispatch:any) => {
-        try{
-            await mainService.GetmenuByuser().then((res:any)=>{
-            console.log(res)
-                dispatch(menuList(res.data['MenuTree Information']))
-                sessionStorage.setItem('history',param2)
-                sessionStorage.setItem('departid',res.data['User Information'].departid==null?'':res.data['User Information'].departid)
-            })
-        }
-        catch(error){
-            param2.push('/login')
-            
-            // alert("菜单查询失败")
-        }
-    }
-}
+
 
 function changeNum (data:any): ChangeNum {
     return {
@@ -124,7 +107,7 @@ export function mapDispatchToProps(dispatch: Dispatch<ProcessAction>) {
         changeNum:(data:any) => dispatch(changeNum(data)),
         menuChange: (data:any) => dispatch(menuChange(data)),
         menuList: (data:any) => dispatch(menuList(data)),
-        GetmenuByuser: (data:any,data1:any) => dispatch(GetmenuByuser(data,data1)),
+       
         breadMap: (data: any) => dispatch(breadMap(data)),
     }
 }

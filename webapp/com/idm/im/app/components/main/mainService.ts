@@ -64,6 +64,20 @@ export const mainService={
             )
         })
     },
+    Getsite:() => {
+        return new Promise(function(resolve,reject){
+            axios.get(Ip.IpMain+'/get-site-info.htm?storageName=草堂库').then(
+                (headers) => {
+                    resolve(headers);
+                    
+                }
+            ).catch(
+                (data) => {
+                    reject(data);
+                }
+            )
+        })
+    },
     
     
 }

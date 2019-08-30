@@ -258,10 +258,10 @@ export default class Map extends React.Component<Props, {}> {
              
                if (geoCoord) {
                    res.push({
-                       name: data[i].city,
+                       name: data[i].name,
                        value: geoCoord.concat(data[i].nowCount,data[i].totalCount)
                    });
-               }
+                               }
            }
            return res;
        };
@@ -472,10 +472,15 @@ export default class Map extends React.Component<Props, {}> {
        };
      
         myChart.on('click', function (params) {
+            console.log(params.name)
             var city = params.name;
             document.getElementById('possidiv').setAttribute('style','display:none')
-            console.log(this.props)
-          this.props.history.push('/main')
+            this.props.history.push('/main')
+            if(params.name=='广州海印库'){
+             
+            }
+            
+          
             }.bind(this));
         myChart.setOption(option);
         window.onresize = myChart.resize
